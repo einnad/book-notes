@@ -3,11 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/public/styles/style.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
     <title>Book notes</title>
   </head>
   <body>
     <h1>Book Notes</h1>
+
+    <form class="review-form" action="/review" method="post">
+      <p>Title:</p>
+      <input name="title" type="text" style="width: 500px" />
+      <p>Author:</p>
+      <input name="author" type="text" style="width: 500px" />
+      <p>Review:</p>
+      <textarea name="review" style="height: 200px; width: 500px"></textarea>
+    </form>
+
+    <h2>Reviews</h2>
+    <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
+    <p><%=rev.title%> written by <%=rev.author%></p>
+    <p>read by</p>
+    <p><%=rev.review%></p>
+    <% }); %> <% } %>
+
     <script src="index.js"></script>
   </body>
 </html>

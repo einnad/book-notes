@@ -20,10 +20,18 @@ const db = new pg.Client({
 
 db.connect();
 
+// function to find reader from reviews
+
 app.listen(port, () => {
   console.log(`Server running on ${port}`);
 });
 
-app.get("/", (req, res) => {
-  res.render("index.ejs");
+app.get("/", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM reviews");
+    // console.log(result.rows);
+    res.render("index.ejs", { reviews: result.rows });
+  } catch (err) {
+    console.log(err);
+  }
 });
