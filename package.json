@@ -11,6 +11,7 @@
   "author": "Dannielle B",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.7",
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.1",
     "ejs": "^3.1.9",

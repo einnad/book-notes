@@ -8,6 +8,14 @@
   </head>
   <body>
     <h1>Book Notes</h1>
+    <a href="/search">Search books</a>
+
+    <h2>Reviews</h2>
+    <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
+    <p><%=rev.title%> written by <%=rev.author%></p>
+    <p>read by</p>
+    <p><%=rev.review%></p>
+    <% }); %> <% } %>
 
     <form class="review-form" action="/review" method="post">
       <p>Title:</p>
@@ -20,13 +28,6 @@
       <input name="reader" type="text" style="width: 500px" />
       <input type="submit" />
     </form>
-
-    <h2>Reviews</h2>
-    <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
-    <p><%=rev.title%> written by <%=rev.author%></p>
-    <p>read by</p>
-    <p><%=rev.review%></p>
-    <% }); %> <% } %>
 
     <script src="index.js"></script>
   </body>

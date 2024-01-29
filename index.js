@@ -2,6 +2,7 @@ import env from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
+import axios from "axios";
 
 env.config();
 const app = express();
@@ -9,6 +10,7 @@ const port = 3000;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set("view engine", "ejs");
 
 const db = new pg.Client({
   user: process.env.PG_USER,
@@ -44,6 +46,10 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.get("/search", (req, res) => {
+  res.render("search");
+});
+
 app.post("/review", async (req, res) => {
   try {
     const readerId = await getReader(req.body.reader);
@@ -56,6 +62,14 @@ app.post("/review", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+app.post("/search", async (req, res) => {
+  const search = req.body["search-term"];
+  const result = await axios.get(
+    `https://openlibrary.org/search.json?q=${search}`
+  );
+  res.render("search", { results: result.data.docs });
 });
 
 // test data
