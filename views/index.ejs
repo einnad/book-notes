@@ -10,11 +10,26 @@
     <h1>Book Notes</h1>
     <a href="/search">Search books</a>
 
+    <!-- <form class="login-form" action="/login" method="post">
+      <p>Name:</p>
+      <input type="text" name="reader-name" />
+      <p>Pin:</p>
+      <input type="text" name="reader-pin" />
+      <input type="submit" />
+    </form> -->
+
     <h2>Reviews</h2>
     <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
     <p><%=rev.title%> written by <%=rev.author%></p>
     <p>read by</p>
     <p><%=rev.review%></p>
+    <form action="/delete" method="post">
+      <input
+        type="submit"
+        name="deleteId"
+        value="Delete review <%= rev.id %>"
+      />
+    </form>
     <% }); %> <% } %>
 
     <form class="review-form" action="/review" method="post">

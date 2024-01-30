@@ -29,6 +29,7 @@ async function getReader(reader) {
   const result = await db.query("SELECT id FROM readers WHERE name = $1", [
     reader,
   ]);
+  if (!result.rows[0].id) throw new Error(`Reader doesn't exist`);
   return result.rows[0].id;
 }
 
@@ -75,3 +76,16 @@ app.post("/search", async (req, res) => {
 // test data
 // A Big Ship at the Edge of the Universe
 // The characters are captivating; their stories soon become the heart of the adventure.
+
+app.post("/delete", async (req, res) => {
+  // console.log(req.body);
+  const reviewId = req.body.deleteId.slice(-1);
+  try {
+    const result = await db.query("DELETE FROM reviews WHERE id = $1", [
+      +reviewId,
+    ]);
+    res.redirect("/");
+  } catch (err) {
+    console.log(err.message);
+  }
+});
