@@ -7,8 +7,10 @@
     <title>Book notes</title>
   </head>
   <body>
-    <h1>Book Notes</h1>
-    <a href="/search">Search books</a>
+    <header>
+      <h1>Book Notes</h1>
+      <a href="/search">Search books</a>
+    </header>
 
     <!-- <form class="login-form" action="/login" method="post">
       <p>Name:</p>
@@ -17,32 +19,37 @@
       <input type="text" name="reader-pin" />
       <input type="submit" />
     </form> -->
+    <div class="review-box">
+      <h2>Reviews</h2>
+      <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
+      <p><%=rev.title%> written by <%=rev.author%></p>
+      <p>read by</p>
+      <p><%=rev.review%></p>
+      <form action="/delete" method="post">
+        <input
+          type="submit"
+          name="deleteId"
+          value="Delete review <%= rev.id %>"
+        />
+      </form>
+      <% }); %> <% } %>
+    </div>
 
-    <h2>Reviews</h2>
-    <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
-    <p><%=rev.title%> written by <%=rev.author%></p>
-    <p>read by</p>
-    <p><%=rev.review%></p>
-    <form action="/delete" method="post">
-      <input
-        type="submit"
-        name="deleteId"
-        value="Delete review <%= rev.id %>"
-      />
-    </form>
-    <% }); %> <% } %>
+    <div class="post-box">
+      <form class="review-form" action="/review" method="post">
+        <p>Title:</p>
+        <input name="title" type="text" style="width: 500px" />
+        <p>Author:</p>
+        <input name="author" type="text" style="width: 500px" />
+        <p>Review:</p>
+        <textarea name="review" style="height: 200px; width: 500px"></textarea>
+        <p>Your name:</p>
+        <input name="reader" type="text" style="width: 500px" />
+        <input type="submit" />
+      </form>
+    </div>
 
-    <form class="review-form" action="/review" method="post">
-      <p>Title:</p>
-      <input name="title" type="text" style="width: 500px" />
-      <p>Author:</p>
-      <input name="author" type="text" style="width: 500px" />
-      <p>Review:</p>
-      <textarea name="review" style="height: 200px; width: 500px"></textarea>
-      <p>Your name:</p>
-      <input name="reader" type="text" style="width: 500px" />
-      <input type="submit" />
-    </form>
+    <footer>© Dannielle 2024</footer>
 
     <script src="index.js"></script>
   </body>

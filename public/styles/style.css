@@ -1,6 +1,39 @@
 body {
   font-family: sans-serif;
   margin: 0;
+  color: #8f6c54;
+  background-color: #fffbe9;
+}
+
+header {
+  display: flex;
+  padding: 20px;
+  color: white;
+  justify-content: space-between;
+  background-color: #ad8b73;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+}
+
+h2 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.review-box {
+  padding: 5rem;
+}
+
+input[type="submit"] {
+  border-radius: 10px;
+  border: none;
+  background-color: #ad8b73;
+  padding: 10px;
+  color: white;
 }
 
 .review-form {
@@ -8,4 +41,14 @@ body {
   flex-direction: column;
   gap: 5px;
   align-items: center;
+
+  padding: 5rem;
+}
+
+footer {
+  background-color: #ad8b73;
+  padding: 5rem;
+  text-align: center;
+  border-top-right-radius: 10%;
+  border-top-left-radius: 10%;
 }
