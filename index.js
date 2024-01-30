@@ -24,13 +24,29 @@ db.connect();
 
 // join db reviews/readers when implementing more readers
 
+// create new reader
+async function createReader(reader) {
+  await db.query("INSERT INTO readers (name) VALUES ($1)", [reader]);
+}
+
 // function to find reader from reviews
 async function getReader(reader) {
+  // console.log(reader);
   const result = await db.query("SELECT id FROM readers WHERE name = $1", [
     reader,
   ]);
-  if (!result.rows[0].id) throw new Error(`Reader doesn't exist`);
-  return result.rows[0].id;
+
+  if (result.rows[0]) {
+    return result.rows[0].id;
+  } else {
+    // throw new Error(`Reader doesn't exist`);
+    await createReader(reader);
+  }
+
+  const resultNew = await db.query("SELECT id FROM readers WHERE name = $1", [
+    reader,
+  ]);
+  return resultNew.rows[0].id;
 }
 
 app.listen(port, () => {
