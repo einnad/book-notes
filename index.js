@@ -49,10 +49,6 @@ async function getReader(reader) {
   return resultNew.rows[0].id;
 }
 
-app.listen(port, () => {
-  console.log(`Server running on ${port}`);
-});
-
 app.get("/", async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM reviews");
@@ -64,7 +60,11 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/search", (req, res) => {
-  res.render("search");
+  res.render("search.ejs");
+});
+
+app.get("/post", (req, res) => {
+  res.render("post.ejs");
 });
 
 app.post("/review", async (req, res) => {
@@ -104,4 +104,8 @@ app.post("/delete", async (req, res) => {
   } catch (err) {
     console.log(err.message);
   }
+});
+
+app.listen(port, () => {
+  console.log(`Server running on ${port}`);
 });

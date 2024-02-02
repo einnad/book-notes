@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/style.css" />
-    <title>Book notes</title>
+    <title>yourwords</title>
   </head>
   <body>
     <header>
-      <h1>Book Notes</h1>
+      <img src="/img/logo.png" alt="yourwords logo" />
       <a href="/search">Search books</a>
+      <a href="/post">Post a review</a>
     </header>
 
     <!-- <form class="login-form" action="/login" method="post">
@@ -19,38 +20,26 @@
       <input type="text" name="reader-pin" />
       <input type="submit" />
     </form> -->
-    <div class="review-box">
-      <h2>Reviews</h2>
+    <h1>Book reviews</h1>
+
+    <h2>Reviews</h2>
+    <div class="wrapper">
       <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
-      <p><%=rev.title%> written by <%=rev.author%></p>
-      <p>read by</p>
-      <p><%=rev.review%></p>
-      <form action="/delete" method="post">
-        <input
-          type="submit"
-          name="deleteId"
-          value="Delete review <%= rev.id %>"
-        />
-      </form>
+      <div class="review-box">
+        <p><%=rev.title%> written by <%=rev.author%></p>
+        <p>read by</p>
+        <p><%=rev.review%></p>
+        <form action="/delete" method="post">
+          <input
+            type="submit"
+            name="deleteId"
+            value="Delete review <%= rev.id %>"
+          />
+        </form>
+      </div>
       <% }); %> <% } %>
     </div>
 
-    <div class="post-box">
-      <form class="review-form" action="/review" method="post">
-        <p>Title:</p>
-        <input name="title" type="text" style="width: 500px" />
-        <p>Author:</p>
-        <input name="author" type="text" style="width: 500px" />
-        <p>Review:</p>
-        <textarea name="review" style="height: 200px; width: 500px"></textarea>
-        <p>Your name:</p>
-        <input name="reader" type="text" style="width: 500px" />
-        <input type="submit" />
-      </form>
-    </div>
-
     <footer>© Dannielle 2024</footer>
-
-    <script src="index.js"></script>
   </body>
 </html>
