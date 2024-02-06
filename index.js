@@ -53,6 +53,14 @@ app.get("/", async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM reviews");
     // console.log(result.rows);
+    for (let i = 0; i < result.rows.length; i++) {
+      const nameRes = await db.query("SELECT name FROM readers WHERE id = $1", [
+        result.rows[i].reader_id,
+      ]);
+      // console.log(nameRes.rows);
+      result.rows[i].name = nameRes.rows[0].name;
+    }
+
     res.render("index.ejs", { reviews: result.rows });
   } catch (err) {
     console.log(err);
@@ -86,7 +94,9 @@ app.post("/search", async (req, res) => {
   const result = await axios.get(
     `https://openlibrary.org/search.json?q=${search}`
   );
-  res.render("search", { results: result.data.docs });
+  const data = result.data.docs;
+
+  res.render("search", { results: data });
 });
 
 // test data

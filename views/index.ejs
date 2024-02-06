@@ -34,7 +34,7 @@
       <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
       <div class="review-box">
         <p><%=rev.title%> written by <%=rev.author%></p>
-        <p>read by</p>
+        <p>read by <%= rev.name %></p>
         <p><%=rev.review%></p>
         <form action="/delete" method="post">
           <input
