@@ -7,6 +7,7 @@ import axios from "axios";
 env.config();
 const app = express();
 const port = 3000;
+let loggedIn = false;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -74,6 +75,12 @@ app.get("/search", (req, res) => {
 app.get("/post", (req, res) => {
   res.render("post.ejs");
 });
+
+app.get("/login", (req, res) => {
+  res.render("login.ejs");
+});
+
+// app.post("/login", (req, res) => {});
 
 app.post("/review", async (req, res) => {
   try {

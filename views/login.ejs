@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search the library</title>
     <link rel="stylesheet" href="/styles/style.css" />
+    <title>Login</title>
   </head>
   <body>
     <header>
@@ -16,19 +16,17 @@
           loading="lazy"
         />
         <a href="/">Home</a>
+        <a href="/search">Search books</a>
         <a href="/post">Post a review</a>
-        <a href="/login">Login</a>
       </nav>
     </header>
-    <h1>Search</h1>
-    <form action="/search" method="post">
-      <p>Search books:</p>
-      <input name="search-term" type="text" />
-    </form>
 
-    <% if (locals.results) { %> <% results.forEach(result => { %>
-    <p><%= result.title %> written by <%= result.author_name %></p>
-    <p><%= result.first_publish_year %></p>
-    <% }) %> <% } %>
+    <form class="login-form" action="/login" method="post">
+      <p>Name:</p>
+      <input type="text" name="reader-name" />
+      <p>Pin:</p>
+      <input type="text" name="reader-pin" />
+      <input type="submit" />
+    </form>
   </body>
 </html>

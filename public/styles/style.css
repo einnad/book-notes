@@ -40,8 +40,8 @@ nav a:hover {
 
 .review-box {
   padding: 1rem;
+  border: solid 1px #6e9eff;
   border-radius: 5px;
-  box-shadow: #6e9eff 0px 8px 24px;
 }
 
 input[type="submit"] {
