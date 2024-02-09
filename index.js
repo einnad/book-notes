@@ -4,16 +4,30 @@ import bodyParser from "body-parser";
 import pg from "pg";
 import axios from "axios";
 import bcrypt from "bcrypt";
+import passport from "passport";
+import { Strategy } from "passport-local";
+import session from "express-session";
 
 env.config();
 const app = express();
-const port = 3000;
+const port = process.env.A_PORT || 3000;
 const salts = 12;
-let loggedIn = false;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true, // check for pg usage with true
+    cookie: {
+      maxAge: 1000 * 60 * 60, // change for testing
+    },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 const db = new pg.Client({
   user: process.env.PG_USER,
@@ -25,7 +39,7 @@ const db = new pg.Client({
 
 db.connect();
 
-// join db reviews/readers when implementing more readers
+// check isAuthenticated on each
 
 // create new reader
 async function createReader(reader) {
@@ -82,25 +96,52 @@ app.get("/login", (req, res) => {
   res.render("login.ejs");
 });
 
-app.get("/sign", (req, res) => {
-  res.render("sign.ejs");
+app.get("/signup", (req, res) => {
+  res.render("signup.ejs");
 });
 
-app.post("/sign", async (req, res) => {
-  try {
-    const hashPassword = await bcrypt.hash(req.body.password, salts);
-    const result = await db.query(
-      "INSERT INTO readers (name, email, password) VALUES ($1, $2, $3)",
-      [req.body.name, req.body.email, hashPassword]
-    );
+app.get("/account", (req, res) => {
+  console.log(req.user);
+  if (req.isAuthenticated()) {
+    res.render("account.ejs");
+  } else {
     res.redirect("/login");
-  } catch (err) {
-    console.log(err);
-    res.redirect("/sign");
   }
 });
 
-// app.post("/login", (req, res) => {});
+app.post("/signup", async (req, res) => {
+  try {
+    const checkReader = await db.query(
+      "SELECT * FROM readers WHERE email = $1",
+      [req.body.email]
+    );
+    if (checkReader.rows > 0) {
+      res.redirect("/login");
+    } else {
+      const hashPassword = await bcrypt.hash(req.body.password, salts);
+      const result = await db.query(
+        "INSERT INTO readers (name, email, password) VALUES ($1, $2, $3) RETURNING *",
+        [req.body.name, req.body.email, hashPassword]
+      );
+      const reader = result.rows[0];
+      res.login(reader, (err) => {
+        console.log(err);
+        res.redirect("/login");
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.redirect("/signup");
+  }
+});
+
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/account",
+    failureRedirect: "/login",
+  })
+);
 
 app.post("/review", async (req, res) => {
   try {
@@ -141,6 +182,48 @@ app.post("/delete", async (req, res) => {
   } catch (err) {
     console.log(err.message);
   }
+});
+
+passport.use(
+  "local",
+  new Strategy({ usernameField: "email" }, async function verify(
+    username,
+    password,
+    cb
+  ) {
+    try {
+      const result = await db.query("SELECT * FROM readers WHERE email = $1", [
+        username,
+      ]);
+      if (result.rows.length > 0) {
+        const reader = result.rows[0];
+        const hashPassword = reader.password;
+        bcrypt.compare(password, hashPassword, (err, result) => {
+          if (err) {
+            return cb(err);
+          } else {
+            if (result) {
+              return cb(null, reader);
+            } else {
+              return cb(null, false);
+            }
+          }
+        });
+      } else {
+        return cb("User not found");
+      }
+    } catch (err) {
+      return cb(err);
+    }
+  })
+);
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser((user, cb) => {
+  cb(null, user);
 });
 
 app.listen(port, () => {
