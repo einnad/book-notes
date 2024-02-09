@@ -3,10 +3,12 @@ import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import axios from "axios";
+import bcrypt from "bcrypt";
 
 env.config();
 const app = express();
 const port = 3000;
+const salts = 12;
 let loggedIn = false;
 
 app.use(express.static("public"));
@@ -78,6 +80,24 @@ app.get("/post", (req, res) => {
 
 app.get("/login", (req, res) => {
   res.render("login.ejs");
+});
+
+app.get("/sign", (req, res) => {
+  res.render("sign.ejs");
+});
+
+app.post("/sign", async (req, res) => {
+  try {
+    const hashPassword = await bcrypt.hash(req.body.password, salts);
+    const result = await db.query(
+      "INSERT INTO readers (name, email, password) VALUES ($1, $2, $3)",
+      [req.body.name, req.body.email, hashPassword]
+    );
+    res.redirect("/login");
+  } catch (err) {
+    console.log(err);
+    res.redirect("/sign");
+  }
 });
 
 // app.post("/login", (req, res) => {});
