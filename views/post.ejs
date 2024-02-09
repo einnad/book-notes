@@ -1,26 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Post a review</title>
-    <link rel="stylesheet" href="/styles/style.css" />
-  </head>
-  <body>
-    <header>
-      <nav>
-        <img
-          class="logo"
-          src="/img/logo.png"
-          alt="yourwords logo"
-          loading="lazy"
-        />
-        <a href="/">Home</a>
-        <a href="/search">Search books</a>
-        <a href="/login">Login</a>
-        <a href="/signup">Sign Up</a>
-      </nav>
-    </header>
+<%- include("partials/header") %>
+
     <h1>Post a review below</h1>
 
     <div class="post-box">
@@ -36,5 +15,6 @@
         <input type="submit" />
       </form>
     </div>
-  </body>
-</html>
+
+<%- include("partials/footer") %>
+    

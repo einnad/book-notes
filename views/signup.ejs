@@ -1,35 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/style.css" />
-    <title>Sign Up</title>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <img
-          class="logo"
-          src="/img/logo.png"
-          alt="yourwords logo"
-          loading="lazy"
-        />
-        <a href="/">Home</a>
-        <a href="/search">Search books</a>
-        <a href="/post">Post a review</a>
-        <a href="/login">Login</a>
-      </nav>
-    </header>
+<%- include("partials/header") %>
 
-    <form class="reg-form" action="/signup" method="post">
-      <p>Name:</p>
-      <input type="text" name="name" />
-      <p>Email:</p>
-      <input type="email" name="email" />
-      <p>Password:</p>
-      <input type="password" name="password" />
-      <input type="submit" />
-    </form>
-  </body>
-</html>
+<form class="reg-form" action="/signup" method="post">
+  <p>Name:</p>
+  <input type="text" name="name" />
+  <p>Email:</p>
+  <input type="email" name="email" />
+  <p>Password:</p>
+  <input type="password" name="password" />
+  <input type="submit" />
+</form>
+ 

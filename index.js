@@ -20,7 +20,7 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true, // check for pg usage with true
+    saveUninitialized: false, // check for pg usage with true
     cookie: {
       maxAge: 1000 * 60 * 60, // change for testing
     },
@@ -40,30 +40,12 @@ const db = new pg.Client({
 db.connect();
 
 // check isAuthenticated on each
-
-// create new reader
-async function createReader(reader) {
-  await db.query("INSERT INTO readers (name) VALUES ($1)", [reader]);
-}
-
-// function to find reader from reviews
-async function getReader(reader) {
-  // console.log(reader);
-  const result = await db.query("SELECT id FROM readers WHERE name = $1", [
-    reader,
-  ]);
-
-  if (result.rows[0]) {
-    return result.rows[0].id;
+function isLoggedIn(req, res, next) {
+  if(req.user) {
+    next();
   } else {
-    // throw new Error(`Reader doesn't exist`);
-    await createReader(reader);
+    res.redirect("/login");
   }
-
-  const resultNew = await db.query("SELECT id FROM readers WHERE name = $1", [
-    reader,
-  ]);
-  return resultNew.rows[0].id;
 }
 
 app.get("/", async (req, res) => {
@@ -88,7 +70,7 @@ app.get("/search", (req, res) => {
   res.render("search.ejs");
 });
 
-app.get("/post", (req, res) => {
+app.get("/post", isLoggedIn, (req, res) => {
   res.render("post.ejs");
 });
 
@@ -101,7 +83,7 @@ app.get("/signup", (req, res) => {
 });
 
 app.get("/account", (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
   if (req.isAuthenticated()) {
     res.render("account.ejs");
   } else {
@@ -144,17 +126,25 @@ app.post(
 );
 
 app.post("/review", async (req, res) => {
-  try {
-    const readerId = await getReader(req.body.reader);
-    // console.log(readerId);
-    await db.query(
-      "INSERT INTO reviews (reader_id, title, author, review) VALUES ($1, $2, $3, $4)",
-      [readerId, req.body.title, req.body.author, req.body.review]
-    );
+  if (req.isAuthenticated()) {
+    try {
+    console.log(req.user);
+    const readerID = req.user.id;
+    await db.query("INSERT INTO reviews (reader_id, title, author, review) VALUES ($1, $2, $3, $4)",  [readerID, req.body.title, req.body.author, req.body.review]);
+    // const readerId = await getReader(req.body.reader);
+    // // console.log(readerId);
+    // await db.query(
+    //   "INSERT INTO reviews (reader_id, title, author, review) VALUES ($1, $2, $3, $4)",
+    //   [readerId, req.body.title, req.body.author, req.body.review]
+    // );
     res.redirect("/");
   } catch (err) {
     console.log(err);
   }
+  } else {
+    res.redirect("/login");
+  }
+  
 });
 
 app.post("/search", async (req, res) => {
@@ -167,13 +157,11 @@ app.post("/search", async (req, res) => {
   res.render("search", { results: data });
 });
 
-// test data
-// A Big Ship at the Edge of the Universe
-// The characters are captivating; their stories soon become the heart of the adventure.
-
+// NEEDS FIX - CHANGEOVER TO ACCOUNTS, SIMPLIFY FOR LOGGED IN STATE
 app.post("/delete", async (req, res) => {
   // console.log(req.body);
-  const reviewId = req.body.deleteId.slice(-1);
+  const reviewId = req.body.deleteId.slice(-2);
+  // console.log(reviewId);
   try {
     const result = await db.query("DELETE FROM reviews WHERE id = $1", [
       +reviewId,
