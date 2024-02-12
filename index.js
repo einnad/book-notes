@@ -82,10 +82,11 @@ app.get("/signup", (req, res) => {
   res.render("signup.ejs");
 });
 
-app.get("/account", (req, res) => {
+app.get("/account", async (req, res) => {
   // console.log(req.user);
   if (req.isAuthenticated()) {
-    res.render("account.ejs");
+    const result = await db.query("SELECT * FROM reviews WHERE reader_id = $1", [req.user.id])
+    res.render("account.ejs", { reviews: result.rows });
   } else {
     res.redirect("/login");
   }
@@ -131,12 +132,6 @@ app.post("/review", async (req, res) => {
     console.log(req.user);
     const readerID = req.user.id;
     await db.query("INSERT INTO reviews (reader_id, title, author, review) VALUES ($1, $2, $3, $4)",  [readerID, req.body.title, req.body.author, req.body.review]);
-    // const readerId = await getReader(req.body.reader);
-    // // console.log(readerId);
-    // await db.query(
-    //   "INSERT INTO reviews (reader_id, title, author, review) VALUES ($1, $2, $3, $4)",
-    //   [readerId, req.body.title, req.body.author, req.body.review]
-    // );
     res.redirect("/");
   } catch (err) {
     console.log(err);
@@ -161,7 +156,6 @@ app.post("/search", async (req, res) => {
 app.post("/delete", async (req, res) => {
   // console.log(req.body);
   const reviewId = req.body.deleteId.slice(-2);
-  // console.log(reviewId);
   try {
     const result = await db.query("DELETE FROM reviews WHERE id = $1", [
       +reviewId,

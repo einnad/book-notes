@@ -10,13 +10,6 @@
         <p><%=rev.title%> written by <%=rev.author%></p>
         <p>read by <%= rev.name %></p>
         <p><%=rev.review%></p>
-        <form action="/delete" method="post">
-          <input
-            type="submit"
-            name="deleteId"
-            value="Delete review <%= rev.id %>"
-          />
-        </form>
       </div>
       <% }); %> <% } %>
     </div>

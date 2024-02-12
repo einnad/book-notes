@@ -3,5 +3,22 @@
     <h1>Account</h1>
     <p>Hello</p>
 
+    <h2>Your Reviews:</h2>
+    <div class="wrapper">
+      <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
+      <div class="review-box">
+        <p><%=rev.title%> written by <%=rev.author%></p>
+        <p><%=rev.review%></p>
+        <form action="/delete" method="post">
+          <input
+            type="submit"
+            name="deleteId"
+            value="Delete review <%= rev.id %>"
+          />
+        </form>
+      </div>
+      <% }); %> <% } %>
+    </div>
+
 <%- include("partials/footer") %>
     
