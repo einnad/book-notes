@@ -31,6 +31,23 @@ nav a:hover {
   font-size: 110%;
 }
 
+.landing-zone {
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+  align-items: center;
+  margin: auto;
+  padding: 20px;
+}
+
+.landing-zone button{
+  background-color: #6e9eff;
+  padding: 20px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

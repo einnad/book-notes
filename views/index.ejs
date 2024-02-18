@@ -1,17 +1,11 @@
 <%- include("partials/header") %>
 
-
     <h1>Book reviews</h1>
 
-    <h2>Reviews</h2>
-    <div class="wrapper">
-      <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
-      <div class="review-box">
-        <p><%=rev.title%> written by <%=rev.author%></p>
-        <p>read by <%= rev.name %></p>
-        <p><%=rev.review%></p>
-      </div>
-      <% }); %> <% } %>
+    <div class="landing-zone">
+      <button>Sign Up</button>
+      <p>OR</p>
+      <button>Login</button>
     </div>
 
     <%- include("partials/footer") %>

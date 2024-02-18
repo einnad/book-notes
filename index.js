@@ -49,21 +49,7 @@ function isLoggedIn(req, res, next) {
 }
 
 app.get("/", async (req, res) => {
-  try {
-    const result = await db.query("SELECT * FROM reviews");
-    // console.log(result.rows);
-    for (let i = 0; i < result.rows.length; i++) {
-      const nameRes = await db.query("SELECT name FROM readers WHERE id = $1", [
-        result.rows[i].reader_id,
-      ]);
-      // console.log(nameRes.rows);
-      result.rows[i].name = nameRes.rows[0].name;
-    }
-
-    res.render("index.ejs", { reviews: result.rows });
-  } catch (err) {
-    console.log(err);
-  }
+  res.render("index.ejs")
 });
 
 app.get("/search", (req, res) => {
@@ -91,6 +77,24 @@ app.get("/account", async (req, res) => {
     res.redirect("/login");
   }
 });
+
+app.get("/reviews", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM reviews");
+    // console.log(result.rows);
+    for (let i = 0; i < result.rows.length; i++) {
+      const nameRes = await db.query("SELECT name FROM readers WHERE id = $1", [
+        result.rows[i].reader_id,
+      ]);
+      // console.log(nameRes.rows);
+      result.rows[i].name = nameRes.rows[0].name;
+    }
+
+    res.render("reviews.ejs", { reviews: result.rows });
+  } catch (err) {
+    console.log(err);
+  }
+})
 
 app.post("/signup", async (req, res) => {
   try {
