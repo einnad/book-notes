@@ -11,12 +11,13 @@ body {
 nav {
   display: flex;
   padding: 20px;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   gap: 20px;
-  border-bottom: solid #ffaf00 2px;
+  border-bottom: solid #9c9797 2px;
 }
 
 .logo {
+  margin: 20px;
   margin-right: auto;
 }
 
@@ -29,6 +30,12 @@ nav a {
 nav a:hover {
   color: #ffaf00;
   font-size: 110%;
+}
+
+h1 {
+  color: #6e9eff;
+  text-align: center;
+  padding: 20px;
 }
 
 .landing-zone {
@@ -46,6 +53,7 @@ nav a:hover {
   border: none;
   border-radius: 50%;
   cursor: pointer;
+  margin: 20px;
 }
 
 .wrapper {
@@ -77,7 +85,7 @@ input[type="submit"] {
 }
 
 footer {
-  border-top: solid #ffaf00 2px;
+  border-top: solid #9c9797 2px;
   padding: 2rem;
   text-align: center;
 }

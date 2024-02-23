@@ -8,13 +8,11 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import session from "express-session";
 
-env.config();
 const app = express();
 const port = process.env.A_PORT || 3000;
-const salts = 12;
+env.config();
+const salts = +process.env.SALT_VALUE;
 
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(
   session({
@@ -25,7 +23,10 @@ app.use(
       maxAge: 1000 * 60 * 60, // change for testing
     },
   })
-);
+  );
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -96,6 +97,14 @@ app.get("/reviews", async (req, res) => {
   }
 })
 
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/account",
+    failureRedirect: "/login",
+  })
+);
+
 app.post("/signup", async (req, res) => {
   try {
     const checkReader = await db.query(
@@ -105,30 +114,26 @@ app.post("/signup", async (req, res) => {
     if (checkReader.rows > 0) {
       res.redirect("/login");
     } else {
-      const hashPassword = await bcrypt.hash(req.body.password, salts);
-      const result = await db.query(
+      bcrypt.hash(req.body.password, salts, async (err, hashPassword) => {
+        if (err) {
+          console.error("Error handling the given password", err);
+        } else {
+           const result = await db.query(
         "INSERT INTO readers (name, email, password) VALUES ($1, $2, $3) RETURNING *",
         [req.body.name, req.body.email, hashPassword]
-      );
-      const reader = result.rows[0];
-      res.login(reader, (err) => {
-        console.log(err);
-        res.redirect("/login");
+        );
+        const reader = result.rows[0];
+        req.login(reader, (err) => {
+          console.log(err);
+          res.redirect("/login");
+          });
+        }
       });
     }
   } catch (err) {
     console.log(err);
-    res.redirect("/signup");
   }
 });
-
-app.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/account",
-    failureRedirect: "/login",
-  })
-);
 
 app.post("/review", async (req, res) => {
   if (req.isAuthenticated()) {
@@ -136,7 +141,7 @@ app.post("/review", async (req, res) => {
     console.log(req.user);
     const readerID = req.user.id;
     await db.query("INSERT INTO reviews (reader_id, title, author, review) VALUES ($1, $2, $3, $4)",  [readerID, req.body.title, req.body.author, req.body.review]);
-    res.redirect("/");
+    res.redirect("/reviews");
   } catch (err) {
     console.log(err);
   }
