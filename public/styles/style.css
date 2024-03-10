@@ -8,28 +8,9 @@ body {
   font-family: sans-serif;
 }
 
-nav {
-  display: flex;
-  padding: 20px;
-  justify-content: space-evenly;
-  gap: 20px;
-  border-bottom: solid #9c9797 2px;
-}
-
 .logo {
   margin: 20px;
   margin-right: auto;
-}
-
-nav a {
-  text-decoration: none;
-  align-self: center;
-  color: #6e9eff;
-}
-
-nav a:hover {
-  color: #ffaf00;
-  font-size: 110%;
 }
 
 h1 {
@@ -47,7 +28,7 @@ h1 {
   padding: 20px;
 }
 
-.landing-zone button{
+.landing-zone button {
   background-color: #6e9eff;
   padding: 20px;
   border: none;
