@@ -23,7 +23,7 @@ app.use(
       maxAge: 1000 * 60 * 60, // change for testing
     },
   })
-  );
+);
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -42,7 +42,7 @@ db.connect();
 
 // check isAuthenticated on each
 function isLoggedIn(req, res, next) {
-  if(req.user) {
+  if (req.user) {
     next();
   } else {
     res.redirect("/login");
@@ -50,7 +50,7 @@ function isLoggedIn(req, res, next) {
 }
 
 app.get("/", async (req, res) => {
-  res.render("index.ejs")
+  res.render("index.ejs");
 });
 
 app.get("/search", (req, res) => {
@@ -69,10 +69,17 @@ app.get("/signup", (req, res) => {
   res.render("signup.ejs");
 });
 
+app.get("/feedback", (req, res) => {
+  res.render("feedback.ejs");
+});
+
 app.get("/account", async (req, res) => {
   // console.log(req.user);
   if (req.isAuthenticated()) {
-    const result = await db.query("SELECT * FROM reviews WHERE reader_id = $1", [req.user.id])
+    const result = await db.query(
+      "SELECT * FROM reviews WHERE reader_id = $1",
+      [req.user.id]
+    );
     res.render("account.ejs", { reviews: result.rows });
   } else {
     res.redirect("/login");
@@ -95,7 +102,7 @@ app.get("/reviews", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-})
+});
 
 app.post(
   "/login",
@@ -118,14 +125,14 @@ app.post("/signup", async (req, res) => {
         if (err) {
           console.error("Error handling the given password", err);
         } else {
-           const result = await db.query(
-        "INSERT INTO readers (name, email, password) VALUES ($1, $2, $3) RETURNING *",
-        [req.body.name, req.body.email, hashPassword]
-        );
-        const reader = result.rows[0];
-        req.login(reader, (err) => {
-          console.log(err);
-          res.redirect("/login");
+          const result = await db.query(
+            "INSERT INTO readers (name, email, password) VALUES ($1, $2, $3) RETURNING *",
+            [req.body.name, req.body.email, hashPassword]
+          );
+          const reader = result.rows[0];
+          req.login(reader, (err) => {
+            console.log(err);
+            res.redirect("/login");
           });
         }
       });
@@ -138,17 +145,19 @@ app.post("/signup", async (req, res) => {
 app.post("/review", async (req, res) => {
   if (req.isAuthenticated()) {
     try {
-    console.log(req.user);
-    const readerID = req.user.id;
-    await db.query("INSERT INTO reviews (reader_id, title, author, review) VALUES ($1, $2, $3, $4)",  [readerID, req.body.title, req.body.author, req.body.review]);
-    res.redirect("/reviews");
-  } catch (err) {
-    console.log(err);
-  }
+      console.log(req.user);
+      const readerID = req.user.id;
+      await db.query(
+        "INSERT INTO reviews (reader_id, title, author, review) VALUES ($1, $2, $3, $4)",
+        [readerID, req.body.title, req.body.author, req.body.review]
+      );
+      res.redirect("/reviews");
+    } catch (err) {
+      console.log(err);
+    }
   } else {
     res.redirect("/login");
   }
-  
 });
 
 app.post("/search", async (req, res) => {

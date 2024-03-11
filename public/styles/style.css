@@ -8,6 +8,10 @@ body {
   font-family: sans-serif;
 }
 
+a {
+  color: #6e9eff;
+}
+
 .logo {
   margin: 20px;
   margin-right: auto;
@@ -17,24 +21,6 @@ h1 {
   color: #6e9eff;
   text-align: center;
   padding: 20px;
-}
-
-.landing-zone {
-  display: flex;
-  flex-direction: column;
-  width: 10rem;
-  align-items: center;
-  margin: auto;
-  padding: 20px;
-}
-
-.landing-zone button {
-  background-color: #6e9eff;
-  padding: 20px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  margin: 20px;
 }
 
 .wrapper {
@@ -63,10 +49,4 @@ input[type="submit"] {
   gap: 5px;
   align-items: center;
   padding: 5rem;
-}
-
-footer {
-  border-top: solid #9c9797 2px;
-  padding: 2rem;
-  text-align: center;
 }
