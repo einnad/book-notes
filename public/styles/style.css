@@ -23,19 +23,6 @@ h1 {
   padding: 20px;
 }
 
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin: 5%;
-}
-
-.review-box {
-  padding: 1rem;
-  border: solid 1px #6e9eff;
-  border-radius: 5px;
-}
-
 input[type="submit"] {
   border-radius: 10px;
   border: solid #ffaf00 1px;
@@ -49,4 +36,12 @@ input[type="submit"] {
   gap: 5px;
   align-items: center;
   padding: 5rem;
+}
+
+footer {
+  text-align: center;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  padding: 20px;
 }
