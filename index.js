@@ -7,6 +7,7 @@ import bcrypt from "bcrypt";
 import passport from "passport";
 import { Strategy } from "passport-local";
 import session from "express-session";
+import { router } from "./server.js";
 
 const app = express();
 const port = process.env.A_PORT || 3000;
@@ -30,6 +31,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use("/", router);
+
 const db = new pg.Client({
   user: process.env.PG_USER,
   host: process.env.PG_HOST,
@@ -41,68 +44,6 @@ const db = new pg.Client({
 db.connect();
 
 // check isAuthenticated on each
-function isLoggedIn(req, res, next) {
-  if (req.user) {
-    next();
-  } else {
-    res.redirect("/login");
-  }
-}
-
-app.get("/", async (req, res) => {
-  res.render("index.ejs");
-});
-
-app.get("/search", (req, res) => {
-  res.render("search.ejs");
-});
-
-app.get("/post", isLoggedIn, (req, res) => {
-  res.render("post.ejs");
-});
-
-app.get("/login", (req, res) => {
-  res.render("login.ejs");
-});
-
-app.get("/signup", (req, res) => {
-  res.render("signup.ejs");
-});
-
-app.get("/feedback", (req, res) => {
-  res.render("feedback.ejs");
-});
-
-app.get("/account", async (req, res) => {
-  // console.log(req.user);
-  if (req.isAuthenticated()) {
-    const result = await db.query(
-      "SELECT * FROM reviews WHERE reader_id = $1",
-      [req.user.id]
-    );
-    res.render("account.ejs", { reviews: result.rows });
-  } else {
-    res.redirect("/login");
-  }
-});
-
-app.get("/reviews", async (req, res) => {
-  try {
-    const result = await db.query("SELECT * FROM reviews");
-    // console.log(result.rows);
-    for (let i = 0; i < result.rows.length; i++) {
-      const nameRes = await db.query("SELECT name FROM readers WHERE id = $1", [
-        result.rows[i].reader_id,
-      ]);
-      // console.log(nameRes.rows);
-      result.rows[i].name = nameRes.rows[0].name;
-    }
-
-    res.render("reviews.ejs", { reviews: result.rows });
-  } catch (err) {
-    console.log(err);
-  }
-});
 
 app.post(
   "/login",
