@@ -1,12 +1,15 @@
 <%- include("partials/header") %>
 
-<form class="reg-form" action="/signup" method="post">
-  <p>Name:</p>
-  <input type="text" name="name" />
-  <p>Email:</p>
-  <input type="email" name="email" />
-  <p>Password:</p>
-  <input type="password" name="password" />
-  <input type="submit" />
-</form>
- 
+<div class="center-div">
+  <form class="reg-form" action="/signup" method="post">
+    <p>Name:</p>
+    <input type="text" name="name" />
+    <p>Email:</p>
+    <input type="email" name="email" />
+    <p>Password:</p>
+    <input type="password" name="password" />
+    <input type="submit" />
+  </form>
+</div>
+
+<%- include("partials/footer") %>

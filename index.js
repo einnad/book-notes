@@ -31,8 +31,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", router);
-
 const db = new pg.Client({
   user: process.env.PG_USER,
   host: process.env.PG_HOST,
@@ -42,6 +40,8 @@ const db = new pg.Client({
 });
 
 db.connect();
+
+app.use("/", router);
 
 // check isAuthenticated on each
 

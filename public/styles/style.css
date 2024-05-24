@@ -2,10 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
+  font-family: "Lora", serif;
 }
 
 a {
@@ -25,9 +22,13 @@ h1 {
 
 input[type="submit"] {
   border-radius: 10px;
-  border: solid #ffaf00 1px;
+  border: none;
   padding: 10px;
   background-color: #ffffff;
+}
+
+input[type="submit"]:hover {
+  background-color: #d6dbd7;
 }
 
 .review-form {
@@ -36,6 +37,16 @@ input[type="submit"] {
   gap: 5px;
   align-items: center;
   padding: 5rem;
+}
+
+.center-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+  margin: 100px;
 }
 
 footer {

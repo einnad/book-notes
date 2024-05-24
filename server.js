@@ -1,4 +1,5 @@
 import express from "express";
+import "./index.js";
 
 export const router = express.Router();
 
