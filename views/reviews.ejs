@@ -6,7 +6,7 @@
     <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
     <div class="col">
       <p><%=rev.title%> written by <%=rev.author%></p>
-      <p>read by <%= rev.name %></p>
+      <p>Reviewed by <%= rev.name %></p>
       <p><%=rev.review%></p>
     </div>
     <% }); %> <% } %>
@@ -14,3 +14,5 @@
 </div>
 
 <%- include("partials/footer") %>
+
+<!-- add star rating -->

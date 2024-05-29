@@ -2,6 +2,7 @@ import env from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
+import { db } from "./db.js";
 import bcrypt from "bcrypt";
 import passport from "passport";
 import { Strategy } from "passport-local";
