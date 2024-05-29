@@ -1,18 +1,19 @@
 <%- include("partials/header") %>
 
-    <h1>Post a review below</h1>
+<h1>Post a review below</h1>
 
-    <div class="post-box">
-      <form class="review-form" action="/review" method="post">
-        <p>Title:</p>
-        <input name="title" type="text" style="width: 500px" />
-        <p>Author:</p>
-        <input name="author" type="text" style="width: 500px" />
-        <p>Review:</p>
-        <textarea name="review" style="height: 200px; width: 500px"></textarea>
-        <input type="submit" />
-      </form>
-    </div>
+<div class="post-box">
+  <form class="review-form" action="/review" method="post">
+    <p>Title:</p>
+    <input name="title" type="text" style="width: 500px" />
+    <p>Author:</p>
+    <input name="author" type="text" style="width: 500px" />
+    <p>Star Rating:</p>
+    <input name="stars" type="number" style="width: 500px" max="5" min="0" />
+    <p>Review:</p>
+    <textarea name="review" style="height: 200px; width: 500px"></textarea>
+    <input type="submit" />
+  </form>
+</div>
 
 <%- include("partials/footer") %>
-    

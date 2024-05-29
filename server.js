@@ -43,12 +43,10 @@ router.get("/account", async (req, res) => {
 router.get("/reviews", async (req, res) => {
   try {
     const result = await db.query("SELECT * FROM reviews");
-    // console.log(result.rows);
     for (let i = 0; i < result.rows.length; i++) {
       const nameRes = await db.query("SELECT name FROM readers WHERE id = $1", [
         result.rows[i].reader_id,
       ]);
-      // console.log(nameRes.rows);
       result.rows[i].name = nameRes.rows[0].name;
     }
 

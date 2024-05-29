@@ -56,3 +56,11 @@ footer {
   width: 100%;
   padding: 20px;
 }
+
+.rating {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #fcdb03;
+  height: 10px;
+  width: 10px;
+}

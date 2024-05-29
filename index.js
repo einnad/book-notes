@@ -76,11 +76,16 @@ app.post("/signup", async (req, res) => {
 app.post("/review", async (req, res) => {
   if (req.isAuthenticated()) {
     try {
-      console.log(req.user);
       const readerID = req.user.id;
       await db.query(
-        "INSERT INTO reviews (reader_id, title, author, review) VALUES ($1, $2, $3, $4)",
-        [readerID, req.body.title, req.body.author, req.body.review]
+        "INSERT INTO reviews (reader_id, title, author, review, stars) VALUES ($1, $2, $3, $4, $5)",
+        [
+          readerID,
+          req.body.title,
+          req.body.author,
+          req.body.review,
+          req.body.stars,
+        ]
       );
       res.redirect("/reviews");
     } catch (err) {
