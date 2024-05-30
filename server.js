@@ -28,13 +28,12 @@ router.get("/feedback", (req, res) => {
 });
 
 router.get("/account", async (req, res) => {
-  // console.log(req.user);
   if (req.isAuthenticated()) {
     const result = await db.query(
       "SELECT * FROM reviews WHERE reader_id = $1",
       [req.user.id]
     );
-    res.render("account.ejs", { reviews: result.rows });
+    res.render("account.ejs", { reviews: result.rows, user: req.user.name });
   } else {
     res.redirect("/login");
   }
