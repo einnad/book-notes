@@ -3,10 +3,11 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Lora", serif;
+  color: #543310;
 }
 
-a {
-  color: #6e9eff;
+body {
+  background-color: #f8f4e1;
 }
 
 .logo {
@@ -14,8 +15,20 @@ a {
   margin-right: auto;
 }
 
+a {
+  color: #543310;
+  padding: 5px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bolder;
+}
+
+a:hover {
+  background-color: #af8f6f;
+}
+
 h1 {
-  color: #6e9eff;
+  color: #543310;
   text-align: center;
   padding: 20px;
 }
@@ -63,4 +76,22 @@ footer {
   background-color: #fcdb03;
   height: 10px;
   width: 10px;
+}
+
+.hero-container {
+  display: flex;
+  width: 100vw;
+  height: 30vh;
+  border: 1px solid #543310;
+}
+
+img {
+  min-width: 100%;
+  object-fit: cover;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
