@@ -2,8 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Lora", serif;
-  color: #543310;
+  font-family: "Oswold", sans-serif;
 }
 
 body {
@@ -11,8 +10,7 @@ body {
 }
 
 .logo {
-  margin: 20px;
-  margin-right: auto;
+  font-weight: bolder;
 }
 
 a {
@@ -23,25 +21,21 @@ a {
   font-weight: bolder;
 }
 
-a:hover {
+a:hover,
+input[type="submit"]:hover {
   background-color: #af8f6f;
 }
 
-h1 {
-  color: #543310;
+p a:hover {
+  background-color: #f8f4e1;
+}
+
+h1,
+h2 {
+  font-family: "Bebas Neue", serif;
   text-align: center;
   padding: 20px;
-}
-
-input[type="submit"] {
-  border-radius: 10px;
-  border: none;
-  padding: 10px;
-  background-color: #ffffff;
-}
-
-input[type="submit"]:hover {
-  background-color: #d6dbd7;
+  color: #543310;
 }
 
 .review-form {
@@ -52,10 +46,36 @@ input[type="submit"]:hover {
   padding: 5rem;
 }
 
+.col {
+  padding-bottom: 50px;
+}
+
+input[type="submit"] {
+  display: block;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  padding: 5px;
+  background-color: #f8f4e1;
+  color: #543310;
+}
+
+input {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+
 .center-div {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  color: #543310;
 }
 
 form {
@@ -81,7 +101,7 @@ footer {
 .hero-container {
   display: flex;
   width: 100vw;
-  height: 30vh;
+  height: 20vh;
   border: 1px solid #543310;
 }
 

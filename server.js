@@ -27,6 +27,15 @@ router.get("/feedback", (req, res) => {
   res.render("feedback.ejs");
 });
 
+router.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
 router.get("/account", async (req, res) => {
   if (req.isAuthenticated()) {
     const result = await db.query(

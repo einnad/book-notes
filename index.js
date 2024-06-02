@@ -31,9 +31,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", router);
-
 // check isAuthenticated on each
+app.use(function (req, res, next) {
+  res.locals.isAuthenticated = req.isAuthenticated();
+  next();
+});
+
+app.use("/", router);
 
 app.post(
   "/login",

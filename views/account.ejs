@@ -2,21 +2,20 @@
 
 <h1>Hello, <%= user %></h1>
 
+<h2>Your Reviews</h2>
+
 <div class="container text-center">
-  <h4>Your Reviews</h4>
-  <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
-  <div class="review-box">
-    <p><%=rev.title%> written by <%=rev.author%></p>
-    <p><%=rev.review%></p>
-    <form action="/delete" method="post">
-      <input
-        type="submit"
-        name="deleteId"
-        value="Delete review <%= rev.id %>"
-      />
-    </form>
+  <div class="row row-cols-3">
+    <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
+    <div class="col">
+      <p><%=rev.title%></p>
+      <% for (let i = 0; i < +rev.stars; i++) { %>
+      <span class="rating"></span>
+      <% } %>
+      <p><%=rev.review%></p>
+    </div>
+    <% }); %> <% } %>
   </div>
-  <% }); %> <% } %>
 </div>
 
 <%- include("partials/footer") %>

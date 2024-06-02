@@ -9,26 +9,32 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+
+    <!--
+      first
+      font
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <!-- second font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles/style.css" />
-    <title>yourwords</title>
+    <title>BookNotes</title>
   </head>
   <body>
     <header>
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"
-            ><img
-              class="logo"
-              src="/img/logo.png"
-              alt="yourwords logo"
-              loading="lazy"
-          /></a>
+          <h1 class="logo">BookNotes</h1>
           <button
             class="navbar-toggler"
             type="button"
@@ -68,16 +74,29 @@
                   </li>
                 </ul>
               </li>
+              <% if (isAuthenticated) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/account">Account</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+              <% } else { %>
               <li class="nav-item">
                 <a class="nav-link" href="/signup">Sign Up</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/login">Login</a>
               </li>
+              <% } %>
             </ul>
           </div>
         </div>
       </nav>
+
+      <div class="hero-container">
+        <img class="img-fluid shadow-lg" src="../img/books.jpg" />
+      </div>
     </header>
   </body>
 </html>
