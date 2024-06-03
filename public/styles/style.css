@@ -27,7 +27,7 @@ input[type="submit"]:hover {
 }
 
 p a:hover {
-  background-color: #f8f4e1;
+  color: #f8f4e1;
 }
 
 h1,
@@ -114,4 +114,25 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* flip css */
+
+.flip-card {
+  background-color: #af8f6f;
+  padding: 20px;
+  border-radius: 10px;
+  float: right;
+  margin-right: 50px;
+  width: 100px;
+  animation: flip 10s infinite;
+}
+
+@keyframes flip {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
 }
