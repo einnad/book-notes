@@ -79,7 +79,7 @@ p {
 }
 
 form {
-  margin: 100px;
+  margin: 20px 100px;
 }
 
 footer {
@@ -114,6 +114,30 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+span {
+  font-weight: bold;
+}
+
+.home-search-box * {
+  margin: 5px;
+}
+
+.home-search-box {
+  background-color: #af8f6f;
+  width: 400px;
+  padding: 20px;
+  margin: 10px 50px;
+  border-radius: 10px;
+  border: 10px solid #543310;
 }
 
 /* flip css */

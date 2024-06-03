@@ -112,7 +112,6 @@ app.post("/search", async (req, res) => {
 
 // NEEDS FIX - CHANGEOVER TO ACCOUNTS, SIMPLIFY FOR LOGGED IN STATE
 app.post("/delete", async (req, res) => {
-  // console.log(req.body);
   const reviewId = req.body.deleteId.slice(-2);
   try {
     const result = await db.query("DELETE FROM reviews WHERE id = $1", [

@@ -1,15 +1,18 @@
 <%- include("partials/header") %>
 
-    <h1>Search</h1>
-    <form action="/search" method="post">
-      <p>Search books:</p>
-      <input name="search-term" type="text" />
-    </form>
+<h1>Search the library</h1>
+<form action="/search" method="post">
+  <p>Search books:</p>
+  <input name="search-term" type="text" />
+</form>
 
-    <% if (locals.results) { %> <% results.forEach(result => { %>
-    <p><%= result.title %> written by <%= result.author_name %></p>
-    <p><%= result.first_publish_year %></p>
-    <% }) %> <% } %>
+<div class="search-results">
+  <% if (locals.results) { %> <% results.forEach(result => { %>
+  <p>
+    <%= result.title %> written by <%= result.author_name %>, <%=
+    result.first_publish_year %>
+  </p>
+  <% }) %> <% } %>
+</div>
 
 <%- include("partials/footer") %>
-    
