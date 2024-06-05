@@ -4,7 +4,19 @@ import { db } from "./db.js";
 export const router = express.Router();
 
 router.get("/", async (req, res) => {
-  res.render("index.ejs");
+  try {
+    const result = await db.query("SELECT * FROM reviews WHERE stars > 4");
+    for (let i = 0; i < result.rows.length; i++) {
+      const nameRes = await db.query("SELECT name FROM readers WHERE id = $1", [
+        result.rows[i].reader_id,
+      ]);
+
+      result.rows[i].name = nameRes.rows[0].name;
+    }
+    res.render("index.ejs", { reviews: result.rows });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 router.get("/search", (req, res) => {

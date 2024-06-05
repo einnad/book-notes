@@ -1,17 +1,36 @@
 <%- include("partials/header") %>
 
-<h2>Featured reviews</h2>
+<div class="home-container">
+  <h2>Top rated</h2>
 
-<p class="flip-card"><a href="/signup"> Sign Up </a> to get involved.</p>
+  <div class="home-search-box">
+    <p>
+      <span>Exlore the library</span> for inspiration on your next page turner
+      or more information on a book you've read.
+    </p>
+    <form action="/search" method="post">
+      <input name="search-term" type="text" placeholder="Enter search term" />
+    </form>
+  </div>
 
-<div class="home-search-box">
-  <p>
-    <span>Exlore the library</span> for inspiration on your next page turner,
-    more information on a book you've read or scan genres.
-  </p>
-  <form action="/search" method="post">
-    <input name="search-term" type="text" placeholder="Enter search term" />
-  </form>
+  <div class="row row-cols-1">
+    <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
+    <div class="col">
+      <p><%=rev.title%> written by <%=rev.author%></p>
+      <p>Reviewed by <%= rev.name %></p>
+      <% for (let i = 0; i < +rev.stars; i++) { %>
+      <span class="rating"></span>
+      <% } %>
+      <p><%=rev.review%></p>
+    </div>
+    <% }); %> <% } %>
+  </div>
+
+  <div class="center-div">
+    <div class="flip-card">
+      <p><a href="/signup"> Sign Up </a> to get involved.</p>
+    </div>
+  </div>
 </div>
 
 <%- include("partials/footer") %>

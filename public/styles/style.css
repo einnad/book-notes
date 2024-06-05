@@ -132,10 +132,11 @@ span {
 }
 
 .home-search-box {
+  z-index: 2;
   background-color: #af8f6f;
   width: 400px;
+  height: 200px;
   padding: 20px;
-  margin: 10px 50px;
   border-radius: 10px;
   border: 10px solid #543310;
 }
@@ -143,12 +144,14 @@ span {
 /* flip css */
 
 .flip-card {
+  text-align: center;
+  display: flex;
+  align-items: center;
   background-color: #af8f6f;
-  padding: 20px;
-  border-radius: 10px;
-  float: right;
-  margin-right: 50px;
-  width: 100px;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border: 2px solid #543310;
   animation: flip 10s infinite;
 }
 
@@ -159,4 +162,22 @@ span {
   to {
     transform: rotateY(360deg);
   }
+}
+
+.row-cols-1 {
+  border: 10px solid #543310;
+  background-color: #af8f6f;
+  border-radius: 10px;
+}
+
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  justify-content: space-around;
+  margin: 0px 20px;
+}
+
+.home-container h2 {
+  grid-column: span 3;
 }
