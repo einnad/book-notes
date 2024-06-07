@@ -5,7 +5,7 @@ export const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM reviews WHERE stars > 4");
+    const result = await db.query("SELECT * FROM reviews WHERE stars >= 4");
     for (let i = 0; i < result.rows.length; i++) {
       const nameRes = await db.query("SELECT name FROM readers WHERE id = $1", [
         result.rows[i].reader_id,
