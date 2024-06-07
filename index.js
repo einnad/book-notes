@@ -112,12 +112,17 @@ app.post("/search", async (req, res) => {
 
 // NEEDS FIX - CHANGEOVER TO ACCOUNTS, SIMPLIFY FOR LOGGED IN STATE
 app.post("/delete", async (req, res) => {
-  const reviewId = req.body.deleteId.slice(-2);
+  const reviewId = req.body.deleteId;
   try {
     const result = await db.query("DELETE FROM reviews WHERE id = $1", [
       +reviewId,
     ]);
-    res.redirect("/");
+    if (result) {
+      res.redirect("/account");
+    } else {
+      console.log("Error handling delete request");
+      res.send("Error handling delete request");
+    }
   } catch (err) {
     console.log(err.message);
   }

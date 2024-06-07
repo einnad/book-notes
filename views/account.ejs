@@ -13,6 +13,10 @@
       <span class="rating"></span>
       <% } %>
       <p><%=rev.review%></p>
+      <form class="del-form" action="/delete" method="post">
+        <input type="hidden" name="deleteId" value="<%= rev.id %>" />
+        <button type="submit">Delete</button>
+      </form>
     </div>
     <% }); %> <% } %>
   </div>

@@ -48,9 +48,11 @@ h2 {
 
 .col {
   padding-bottom: 50px;
+  border: 2px solid #543310;
 }
 
-input[type="submit"] {
+input[type="submit"],
+button {
   display: block;
   margin: 5px;
   border-radius: 10px;
@@ -58,6 +60,14 @@ input[type="submit"] {
   padding: 5px;
   background-color: #f8f4e1;
   color: #543310;
+}
+
+button {
+  font-weight: 900;
+}
+
+.del-form {
+  margin: 0;
 }
 
 input {
@@ -138,7 +148,7 @@ span {
   height: 200px;
   padding: 20px;
   border-radius: 10px;
-  border: 10px solid #543310;
+  border: 7px solid #543310;
 }
 
 /* flip css */
@@ -165,7 +175,7 @@ span {
 }
 
 .row-cols-1 {
-  border: 10px solid #543310;
+  border: 5px solid #543310;
   background-color: #af8f6f;
   border-radius: 10px;
 }

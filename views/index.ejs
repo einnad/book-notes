@@ -16,7 +16,8 @@
   <div class="row row-cols-1">
     <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
     <div class="col">
-      <p><%=rev.title%> written by <%=rev.author%></p>
+      <span style="font-size: larger; color: #543310"><%=rev.title%></span>
+      <p><%=rev.author%></p>
       <p>Reviewed by <%= rev.name %></p>
       <% for (let i = 0; i < +rev.stars; i++) { %>
       <span class="rating"></span>
