@@ -17,6 +17,11 @@
         <input type="hidden" name="deleteId" value="<%= rev.id %>" />
         <button type="submit">Delete</button>
       </form>
+      <!-- select edit form -->
+      <form action="/select" method="post">
+        <input type="hidden" name="selectId" value="<%= rev.id %>" />
+        <button type="submit">Edit</button>
+      </form>
     </div>
     <% }); %> <% } %>
   </div>

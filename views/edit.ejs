@@ -1,0 +1,37 @@
+<%- include("partials/header") %>
+
+<div class="post-box">
+  <form class="review-form" action="/edit" method="post">
+    <p>Title:</p>
+    <input
+      name="title"
+      type="text"
+      style="width: 500px"
+      value="<%= rev.title %>"
+    />
+    <p>Author:</p>
+    <input
+      name="author"
+      type="text"
+      style="width: 500px"
+      value="<%= rev.author %>"
+    />
+    <p>Star Rating:</p>
+    <input
+      name="stars"
+      type="number"
+      style="width: 500px"
+      max="5"
+      min="0"
+      value="<%= rev.stars %>"
+    />
+    <p>Review:</p>
+    <textarea name="review" style="height: 200px; width: 500px">
+<%= rev.review %></textarea
+    >
+    <input type="hidden" name="editId" value="<%= rev.id %>" />
+    <button type="submit">Save</button>
+  </form>
+</div>
+
+<%- include("partials/footer") %>

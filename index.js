@@ -128,6 +128,18 @@ app.post("/delete", async (req, res) => {
   }
 });
 
+router.post("/select", async (req, res) => {
+  try {
+    console.log(req.body.selectId);
+    const id = req.body.selectId;
+    const review = await db.query("SELECT * FROM reviews WHERE id = $1", [+id]);
+    res.render("edit.ejs", { rev: review.rows[0] });
+  } catch (err) {
+    console.log(err);
+    res.redirect("/account");
+  }
+});
+
 passport.use(
   "local",
   new Strategy({ usernameField: "email" }, async function verify(
