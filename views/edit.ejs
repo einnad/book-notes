@@ -1,5 +1,4 @@
-<%- include("partials/header") %>
-
+<%- include("partials/header") %> <% if (locals.rev) { %>
 <div class="post-box">
   <form class="review-form" action="/edit" method="post">
     <p>Title:</p>
@@ -27,11 +26,12 @@
     />
     <p>Review:</p>
     <textarea name="review" style="height: 200px; width: 500px">
-<%= rev.review %></textarea
+  <%= rev.review %></textarea
     >
     <input type="hidden" name="editId" value="<%= rev.id %>" />
     <button type="submit">Save</button>
   </form>
 </div>
-
-<%- include("partials/footer") %>
+<% } else { %>
+<p>Else state</p>
+<% } %> <%- include("partials/footer") %>

@@ -100,6 +100,29 @@ app.post("/review", async (req, res) => {
   }
 });
 
+app.post("/edit", async (req, res) => {
+  if (req.isAuthenticated()) {
+    try {
+      const readerID = req.user.id;
+      await db.query(
+        "UPDATE reviews SET title = $1, author = $2, review = $3, stars = $4 WHERE reader_id = $5",
+        [
+          req.body.title,
+          req.body.author,
+          req.body.review,
+          req.body.stars,
+          readerID,
+        ]
+      );
+      res.redirect("/account");
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+
 app.post("/search", async (req, res) => {
   const search = req.body["search-term"];
   const result = await axios.get(
@@ -128,15 +151,20 @@ app.post("/delete", async (req, res) => {
   }
 });
 
-router.post("/select", async (req, res) => {
-  try {
-    console.log(req.body.selectId);
-    const id = req.body.selectId;
-    const review = await db.query("SELECT * FROM reviews WHERE id = $1", [+id]);
-    res.render("edit.ejs", { rev: review.rows[0] });
-  } catch (err) {
-    console.log(err);
-    res.redirect("/account");
+app.post("/select", async (req, res) => {
+  if (req.isAuthenticated()) {
+    try {
+      const id = req.body.selectId;
+      const review = await db.query("SELECT * FROM reviews WHERE id = $1", [
+        +id,
+      ]);
+      res.render("edit.ejs", { rev: review.rows[0] });
+    } catch (err) {
+      console.log(err);
+      res.redirect("/account");
+    }
+  } else {
+    res.redirect("/login");
   }
 });
 

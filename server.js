@@ -39,6 +39,10 @@ router.get("/feedback", (req, res) => {
   res.render("feedback.ejs");
 });
 
+router.get("/edit", (req, res) => {
+  res.render("edit.ejs");
+});
+
 router.get("/logout", (req, res) => {
   req.logout((err) => {
     if (err) {
