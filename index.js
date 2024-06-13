@@ -103,14 +103,16 @@ app.post("/review", async (req, res) => {
 app.post("/edit", async (req, res) => {
   if (req.isAuthenticated()) {
     try {
+      const editID = req.body.editId;
       const readerID = req.user.id;
       await db.query(
-        "UPDATE reviews SET title = $1, author = $2, review = $3, stars = $4 WHERE reader_id = $5",
+        "UPDATE reviews SET title = $1, author = $2, review = $3, stars = $4 WHERE id = $5 AND reader_id = $6",
         [
           req.body.title,
           req.body.author,
           req.body.review,
           req.body.stars,
+          editID,
           readerID,
         ]
       );
