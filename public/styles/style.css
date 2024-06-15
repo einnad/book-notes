@@ -196,3 +196,21 @@ span {
 .home-container h2 {
   grid-column: span 3;
 }
+
+/* waitlist dropdown */
+
+.waitlist-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+ul {
+  list-style: circle;
+  color: #543310;
+}
+
+li {
+  max-width: max-content;
+  color: #543310;
+}

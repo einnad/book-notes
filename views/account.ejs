@@ -5,6 +5,28 @@
 <h2>Your Reviews</h2>
 
 <div class="container text-center">
+  <div class="waitlist-container">
+    <p class="d-inline-flex gap-1">
+      <button
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseExample"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        Waitlist
+      </button>
+    </p>
+
+    <div class="collapse" id="collapseExample">
+      <div>
+        <ul>
+          <li>Book</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <div class="row row-cols-3">
     <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
     <div class="col">
