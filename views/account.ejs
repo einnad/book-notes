@@ -21,12 +21,15 @@
     <div class="collapse" id="collapseExample">
       <div>
         <ul>
-          <li>Book</li>
+          <% if (locals.waitlist) {%> <% waitlist.forEach(book => { %>
+          <li><%= book.book %></li>
+          <% }); %> <% } %>
         </ul>
         <form class="waitlist-form" action="/addWaitlistBook" method="post">
           <input
             type="text"
             name="waitlistBook"
+            autocomplete="off"
             style="border: solid 1px #543310"
           />
           <input type="submit" value="Add" style="font-weight: bolder" />

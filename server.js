@@ -58,7 +58,15 @@ router.get("/account", async (req, res) => {
       "SELECT * FROM reviews WHERE reader_id = $1",
       [req.user.id]
     );
-    res.render("account.ejs", { reviews: result.rows, user: req.user.name });
+    const waitlistRes = await db.query(
+      "SELECT * FROM waitlist WHERE reader_id = $1",
+      [req.user.id]
+    );
+    res.render("account.ejs", {
+      reviews: result.rows,
+      user: req.user.name,
+      waitlist: waitlistRes.rows,
+    });
   } else {
     res.redirect("/login");
   }

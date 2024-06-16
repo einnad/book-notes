@@ -174,6 +174,12 @@ app.post("/addWaitlistBook", async (req, res) => {
   if (req.isAuthenticated()) {
     try {
       const newBook = req.body.waitlistBook;
+      const readerid = req.user.id;
+      await db.query("INSERT INTO waitlist (reader_id, book) VALUES ($1, $2)", [
+        readerid,
+        newBook,
+      ]);
+      res.redirect("/account");
     } catch (err) {
       console.log(err);
     }
