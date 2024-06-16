@@ -214,3 +214,8 @@ li {
   max-width: max-content;
   color: #543310;
 }
+
+.waitlist-form {
+  margin: 0;
+  width: max-content;
+}

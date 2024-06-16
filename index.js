@@ -170,6 +170,16 @@ app.post("/select", async (req, res) => {
   }
 });
 
+app.post("/addWaitlistBook", async (req, res) => {
+  if (req.isAuthenticated()) {
+    try {
+      const newBook = req.body.waitlistBook;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+});
+
 passport.use(
   "local",
   new Strategy({ usernameField: "email" }, async function verify(
