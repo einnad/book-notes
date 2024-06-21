@@ -135,11 +135,28 @@ app.post("/search", async (req, res) => {
   res.render("search", { results: data });
 });
 
-// NEEDS FIX - CHANGEOVER TO ACCOUNTS, SIMPLIFY FOR LOGGED IN STATE
+// CONDENSE?
 app.post("/delete", async (req, res) => {
-  const reviewId = req.body.deleteId;
+  const reviewId = req.body.deleteIdReview;
   try {
     const result = await db.query("DELETE FROM reviews WHERE id = $1", [
+      +reviewId,
+    ]);
+    if (result) {
+      res.redirect("/account");
+    } else {
+      console.log("Error handling delete request");
+      res.send("Error handling delete request");
+    }
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+app.post("/deleteWaitlistBook", async (req, res) => {
+  const reviewId = req.body.deleteIdBook;
+  try {
+    const result = await db.query("DELETE FROM waitlist WHERE id = $1", [
       +reviewId,
     ]);
     if (result) {

@@ -23,6 +23,10 @@
         <ul>
           <% if (locals.waitlist) {%> <% waitlist.forEach(book => { %>
           <li><%= book.book %></li>
+          <form class="del-form" action="/deleteWaitlistBook" method="post">
+            <input type="hidden" name="deleteIdBook" value="<%= book.id %>" />
+            <button type="submit">Delete</button>
+          </form>
           <% }); %> <% } %>
         </ul>
         <form class="waitlist-form" action="/addWaitlistBook" method="post">
@@ -47,7 +51,7 @@
       <% } %>
       <p><%=rev.review%></p>
       <form class="del-form" action="/delete" method="post">
-        <input type="hidden" name="deleteId" value="<%= rev.id %>" />
+        <input type="hidden" name="deleteIdReview" value="<%= rev.id %>" />
         <button type="submit">Delete</button>
       </form>
       <!-- select edit form -->
