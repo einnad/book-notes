@@ -28,7 +28,6 @@ app.use(
 );
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(xss());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -51,20 +50,23 @@ app.post(
 
 app.post("/signup", async (req, res) => {
   try {
+    const x_email = xss(req.body.email);
+    const x_password = xss(req.body.password);
+    const x_name = xss(req.body.name);
     const checkReader = await db.query(
       "SELECT * FROM readers WHERE email = $1",
-      [req.body.email]
+      [x_email]
     );
     if (checkReader.rows > 0) {
       res.redirect("/login");
     } else {
-      bcrypt.hash(req.body.password, salts, async (err, hashPassword) => {
+      bcrypt.hash(x_password, salts, async (err, hashPassword) => {
         if (err) {
           console.error("Error handling the given password", err);
         } else {
           const result = await db.query(
             "INSERT INTO readers (name, email, password) VALUES ($1, $2, $3) RETURNING *",
-            [req.body.name, req.body.email, hashPassword]
+            [x_name, x_email, hashPassword]
           );
           const reader = result.rows[0];
           req.login(reader, (err) => {
