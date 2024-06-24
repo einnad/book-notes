@@ -8,6 +8,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import session from "express-session";
 import { router } from "./server.js";
+import xss from "xss";
 
 const app = express();
 const port = process.env.A_PORT || 3000;
@@ -27,6 +28,7 @@ app.use(
 );
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(xss());
 
 app.use(passport.initialize());
 app.use(passport.session());
