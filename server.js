@@ -1,5 +1,6 @@
 import express from "express";
 import { db } from "./db.js";
+import axios from "axios";
 
 export const router = express.Router();
 
@@ -13,7 +14,11 @@ router.get("/", async (req, res) => {
 
       result.rows[i].name = nameRes.rows[0].name;
     }
-    res.render("index.ejs", { reviews: result.rows });
+
+    const quote_res = await axios.get("https://zenquotes.io/api/quotes/");
+    const rand = Math.floor(Math.random() * Object.keys(quote_res).length);
+    const quote = quote_res.data[rand];
+    res.render("index.ejs", { reviews: result.rows, quote: quote });
   } catch (err) {
     console.log(err);
   }

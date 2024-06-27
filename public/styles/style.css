@@ -89,7 +89,8 @@ input {
   align-items: center;
 }
 
-p {
+p,
+b {
   margin: 0;
   padding: 0;
   color: #543310;

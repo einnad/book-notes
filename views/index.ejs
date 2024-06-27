@@ -32,6 +32,13 @@
       <p><a href="/signup"> Sign Up </a> to get involved.</p>
     </div>
   </div>
+
+  <div class="home-search-box">
+    <% if (locals.quote) { %>
+    <p class="quote"><%= quote.q %></p>
+    <b><%= quote.a %></b>
+    <% } %>
+  </div>
 </div>
 
 <%- include("partials/footer") %>
