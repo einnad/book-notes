@@ -190,8 +190,15 @@ span {
   margin: 0px 20px;
 }
 
-.home-container h2 {
+.home-container h2,
+.quote-container {
   grid-column: span 3;
+}
+
+.quote-container {
+  text-align: center;
+  padding: 40px 0px;
+  font-size: 24px;
 }
 
 /* waitlist dropdown */

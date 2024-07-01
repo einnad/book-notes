@@ -1,6 +1,13 @@
 <%- include("partials/header") %>
 
 <div class="home-container">
+  <div class="quote-container">
+    <% if (locals.quote) { %>
+    <p style="font-style: italic">"<%= quote.q %>"</p>
+    <b><%= quote.a %></b>
+    <% } %>
+  </div>
+
   <h2>Top rated</h2>
 
   <div class="home-search-box">
@@ -31,13 +38,6 @@
     <div class="flip-card">
       <p><a href="/signup"> Sign Up </a> to get involved.</p>
     </div>
-  </div>
-
-  <div class="home-search-box">
-    <% if (locals.quote) { %>
-    <p class="quote"><%= quote.q %></p>
-    <b><%= quote.a %></b>
-    <% } %>
   </div>
 </div>
 
