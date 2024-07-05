@@ -207,6 +207,25 @@ app.post("/addWaitlistBook", async (req, res) => {
   }
 });
 
+app.post("/sort", async (req, res) => {
+  try {
+    const option = req.body.options;
+    switch (option) {
+      case "abcauthor":
+        try {
+          const reviews = await db.query(
+            "SELECT * FROM reviews ORDER BY author ASC"
+          );
+          res.render("reviews.ejs", { reviews: reviews.rows });
+        } catch (err) {
+          console.log(err);
+        }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 passport.use(
   "local",
   new Strategy({ usernameField: "email" }, async function verify(
