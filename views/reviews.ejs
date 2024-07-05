@@ -1,6 +1,21 @@
 <%- include("partials/header") %>
 
 <h1>Reviews</h1>
+
+<!-- ADD SORT BY, INC ALPHABET(AUTH/TITLE), STARS -->
+<div>
+  <form action="/sort" method="post">
+    <!-- <label>Sort</label> -->
+    <select name="options">
+      <option value="default">Default</option>
+      <option value="abcauthor">A-Z Author</option>
+      <option value="abcbook">A-Z Book</option>
+      <option value="rating">Rating</option>
+    </select>
+    <button type="submit">Sort</button>
+  </form>
+</div>
+
 <div class="container text-center">
   <div class="row row-cols-3">
     <% if (locals.reviews) { %> <% reviews.forEach(rev => { %>
